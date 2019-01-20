@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Tarefa {
 
@@ -15,6 +17,7 @@ public class Tarefa {
 	private Integer id;
 	private String nome;
 	private String descricao;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate dataLimite;
 	private LocalDate dataCriacao;
 
@@ -56,5 +59,11 @@ public class Tarefa {
 
 	public void setDataCricao(LocalDate dataCricao) {
 		this.dataCriacao = dataCricao;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Tarefa Id=%s, Nome=%s, Descricao=%s, DataLimite=%s, DataCriacao=%s \n", id, nome,
+				descricao, dataLimite, dataCriacao);
 	}
 }
