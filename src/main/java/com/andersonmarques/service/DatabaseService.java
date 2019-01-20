@@ -26,7 +26,7 @@ public class DatabaseService {
 	 */
 	public void popularBancoDeDados() {
 		Tarefa tarefa1 = new Tarefa();
-		tarefa1.setDataCricao(LocalDate.of(2019, 1, 19));
+		tarefa1.setDataCriacao(LocalDate.of(2019, 1, 19));
 		tarefa1.setDataLimite(LocalDate.of(2019, 1, 20));
 		tarefa1.setNome("Spring boot crud");
 		tarefa1.setDescricao("Criar um crud com spring boot");

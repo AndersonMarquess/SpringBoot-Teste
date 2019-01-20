@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"/>
 		<title>Listar tarefa</title>
@@ -9,6 +9,23 @@
 			<h1>Lista de tarefas</h1>
 		</header>
 		
-		<!-- Lista -->
+		<!--Lista -->
+		<table border="1">
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Descrição</th>
+				<th>Data de criação</th>
+				<th>Data de entrega</th>
+			</tr>
+			<tr th:each="t : ${tarefas}">
+				<td th:text="${t.id}"></td>
+				<td th:text="${t.nome}"></td>
+				<td th:text="${t.descricao}"></td>
+				<td th:text="${ #temporals.format(t.dataCriacao , 'dd-MM-yyyy') }"></td>
+				<td th:text="${ #temporals.format(t.dataLimite , 'dd-MM-yyyy') }"></td>
+			</tr>
+		</table>
+		
 	</body>
 </html>

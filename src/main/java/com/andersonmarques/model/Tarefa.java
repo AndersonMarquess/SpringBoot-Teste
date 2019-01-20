@@ -53,12 +53,12 @@ public class Tarefa {
 		this.dataLimite = dataLimite;
 	}
 
-	public LocalDate getDataCricao() {
+	public LocalDate getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCricao(LocalDate dataCricao) {
-		this.dataCriacao = dataCricao;
+	public void setDataCriacao(LocalDate dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
 	@Override

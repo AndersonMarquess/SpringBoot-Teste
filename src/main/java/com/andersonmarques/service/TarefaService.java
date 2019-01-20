@@ -1,6 +1,7 @@
 package com.andersonmarques.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +16,23 @@ public class TarefaService {
 	private TarefaRepository tarefaRepository;
 	
 	public void criar(Tarefa tarefa) {
-		tarefa.setDataCricao(LocalDate.now());
+		tarefa.setDataCriacao(LocalDate.now());
 		tarefaRepository.save(tarefa);
 	}
 	
-	//buscar uma
+	public Tarefa encontrarTarefaPorId(int id) {
+		return tarefaRepository.findById(id).get();
+	}
 	
-	//buscar todas
+	public List<Tarefa> encontrarTodasAsTarefas() {
+		return tarefaRepository.findAll();
+	}
 	
-	//editar
+	public void editarTarefa(Tarefa tarefa) {
+		tarefaRepository.save(tarefa);
+	}
 	
-	//remover
+	public void removerTarefaPorId(int id) {
+		tarefaRepository.deleteById(id);
+	}
 }
