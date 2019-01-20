@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Criar tarefa</title>
+	</head>
+	<body>
+		<header>
+			<h1>Criar tarefa</h1>
+		</header>
+	
+		<form method="POST" action="/crud-tarefa/atualizar" th:object="${ tarefa }">
+			<input type="hidden" th:value=${tarefa.id} name="id"/>
+			Nome: <input type="text" th:value="${ tarefa.nome }" name="nome" />
+			Descricao: <input type="text" th:value="${ tarefa.descricao }" name="descricao" />
+			Data limite de entrega: <input type="date" th:value="${ tarefa.dataLimite }" name="dataLimite" />
+	
+			<button type="submit">Cadastrar</button>
+		</form>
+	
+	</body>
+</html>

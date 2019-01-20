@@ -1,13 +1,9 @@
 package com.andersonmarques.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Tarefa {
@@ -17,9 +13,8 @@ public class Tarefa {
 	private Integer id;
 	private String nome;
 	private String descricao;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private LocalDate dataLimite;
-	private LocalDate dataCriacao;
+	private String dataLimite;
+	private String dataCriacao;
 
 	public Integer getId() {
 		return id;
@@ -45,19 +40,19 @@ public class Tarefa {
 		this.descricao = descricao;
 	}
 
-	public LocalDate getDataLimite() {
+	public String getDataLimite() {
 		return dataLimite;
 	}
 
-	public void setDataLimite(LocalDate dataLimite) {
+	public void setDataLimite(String dataLimite) {
 		this.dataLimite = dataLimite;
 	}
 
-	public LocalDate getDataCriacao() {
+	public String getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(LocalDate dataCriacao) {
+	public void setDataCriacao(String dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 

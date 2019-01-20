@@ -17,13 +17,18 @@
 				<th>Descrição</th>
 				<th>Data de criação</th>
 				<th>Data de entrega</th>
+				<th>Opções</th>
 			</tr>
 			<tr th:each="t : ${tarefas}">
 				<td th:text="${t.id}"></td>
 				<td th:text="${t.nome}"></td>
 				<td th:text="${t.descricao}"></td>
-				<td th:text="${ #temporals.format(t.dataCriacao , 'dd-MM-yyyy') }"></td>
-				<td th:text="${ #temporals.format(t.dataLimite , 'dd-MM-yyyy') }"></td>
+				<td> <input type="date" th:value="${t.dataCriacao}" readonly/> </td>
+				<td> <input type="date" th:value="${t.dataLimite}" readonly/> </td>
+				<td> 
+					<a th:href="@{/crud-tarefa/editar/{id} (id=${t.id}) }">Editar</a> | 
+					<a th:href="@{/crud-tarefa/remover/{id} (id=${t.id}) }">Remover</a>
+				</td>
 			</tr>
 		</table>
 		
