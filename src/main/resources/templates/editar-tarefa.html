@@ -10,6 +10,7 @@
 		</header>
 	
 		<form method="POST" action="/crud-tarefa/atualizar" th:object="${ tarefa }">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 			<input type="hidden" th:value=${tarefa.id} name="id"/>
 			Nome: <input type="text" th:value="${ tarefa.nome }" name="nome" />
 			Descricao: <input type="text" th:value="${ tarefa.descricao }" name="descricao" />

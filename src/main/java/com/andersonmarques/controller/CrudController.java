@@ -1,7 +1,6 @@
 package com.andersonmarques.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +51,6 @@ public class CrudController {
 	
 	@GetMapping("/editar/{id}")
 	public String editar(@PathVariable("id")int id, ModelMap model) {
-		System.out.println("Valor recebido: "+id);
 		model.addAttribute("tarefa", tarefaService.encontrarTarefaPorId(id));
 		return "/editar-tarefa";
 	}
@@ -65,7 +63,6 @@ public class CrudController {
 	
 	@GetMapping("/remover/{id}")
 	public String remover(@PathVariable("id")int id) {
-		System.out.println("Valor recebido: "+id);
 		tarefaService.removerTarefaPorId(id);
 		return "redirect:/crud-tarefa/listar-todas";
 	}
