@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.andersonmarques.service.UsuarioAutenticavelService;
+
 /**
  * Classe responsável por conter todas as configurações de segurança.
  * 
@@ -23,9 +25,9 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+				.antMatchers("/popular-users").permitAll()
 				.antMatchers("/**/listar-todas").hasAnyRole("USER") //Apenas usuário com role user
 				.antMatchers("/**/novo").hasAnyRole("ADMIN") //Apenas usuário com role admin
-				.antMatchers("/seguro").hasAnyRole("ADMIN")
 				.anyRequest()
 				.authenticated()
 			.and()
