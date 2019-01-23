@@ -1,8 +1,11 @@
 package com.andersonmarques.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +41,10 @@ public class CrudController {
 	}
 	
 	@PostMapping("/adicionar")
-	public String adicionar(Tarefa tarefa) {
+	public String adicionar(@Valid Tarefa tarefa, BindingResult result) {
+		if(result.hasErrors()) {
+			return "/criar-tarefa";
+		}
 		tarefaService.criar(tarefa);
 		return "redirect:/crud-tarefa/listar-todas";
 	}
@@ -56,7 +62,10 @@ public class CrudController {
 	}
 	
 	@PostMapping("/atualizar")
-	public String atualizar(Tarefa tarefa) {
+	public String atualizar(@Valid Tarefa tarefa, BindingResult result) {
+		if(result.hasErrors()) {
+			return "/editar-tarefa";
+		}
 		tarefaService.editarTarefa(tarefa);
 		return "redirect:/crud-tarefa/listar-todas";
 	}

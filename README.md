@@ -8,3 +8,4 @@ Conteúdo:
  * Spring data JPA ✔️
  * MySQL ✔️
  * Thymeleaf ✔️
+ * Bean validation ✔️

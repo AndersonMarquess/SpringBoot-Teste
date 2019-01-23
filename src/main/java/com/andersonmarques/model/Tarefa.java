@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Tarefa {
@@ -11,8 +13,11 @@ public class Tarefa {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
+	@NotEmpty(message="O Nome não pode ser nulo.")
 	private String nome;
+	@Size(max=200, message="A Descrição deve possuir no máximo {max} caracteres.")
 	private String descricao;
+	@NotEmpty(message="A Data limite de entrega não pode ser nulo.")
 	private String dataLimite;
 	private String dataCriacao;
 

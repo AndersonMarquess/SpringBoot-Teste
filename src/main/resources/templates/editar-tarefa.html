@@ -9,12 +9,16 @@
 			<h1>Criar tarefa</h1>
 		</header>
 	
-		<form method="POST" action="/crud-tarefa/atualizar" th:object="${ tarefa }">
+		<form method="POST" action="/crud-tarefa/atualizar" th:object="${tarefa}">
+			<!-- Lista todos os erros -->
+			<p th:if="${#fields.hasErrors('all')}" th:errors="*{all}">Erros na validação</p>
+			
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 			<input type="hidden" th:value=${tarefa.id} name="id"/>
-			Nome: <input type="text" th:value="${ tarefa.nome }" name="nome" />
-			Descricao: <input type="text" th:value="${ tarefa.descricao }" name="descricao" />
-			Data limite de entrega: <input type="date" th:value="${ tarefa.dataLimite }" name="dataLimite" />
+			
+			Nome: <input type="text" th:value="${ tarefa.nome }" name="nome" th:field="*{nome}"/>
+			Descricao: <input type="text" th:value="${ tarefa.descricao }" name="descricao" th:field="*{descricao}"/>
+			Data limite de entrega: <input type="date" th:value="${ tarefa.dataLimite }" name="dataLimite" th:field="*{dataLimite}"/>
 	
 			<button type="submit">Cadastrar</button>
 		</form>

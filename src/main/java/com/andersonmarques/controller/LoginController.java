@@ -8,22 +8,27 @@ import com.andersonmarques.service.UsuarioAutenticavelService;
 
 @Controller
 public class LoginController {
-	
+
 	@Autowired
 	private UsuarioAutenticavelService usuarioAutenticavelService;
 
 	@GetMapping("/login")
 	public String loginPage() {
-		return "login"; //login.html
+		return "login"; // login.html
 	}
-	
+
 	/**
 	 * Endpoint para criar o admin inicial do sistema.
+	 * 
 	 * @return
 	 */
 	@GetMapping("/popular-users")
 	public String popularUsers() {
-		usuarioAutenticavelService.criarAdminMock();
+		try {
+			usuarioAutenticavelService.criarAdminMock();
+		} catch (Exception e) {
+			System.out.println("Usuário já existente.");
+		}
 		return "login";
 	}
 }
