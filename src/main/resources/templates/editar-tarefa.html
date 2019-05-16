@@ -9,7 +9,7 @@
 			<h1>Criar tarefa</h1>
 		</header>
 	
-		<form method="POST" action="/crud-tarefa/atualizar" th:object="${tarefa}">
+		<form method="POST" action="/tarefa/atualizar" th:object="${tarefa}">
 			<!-- Lista todos os erros -->
 			<p th:if="${#fields.hasErrors('all')}" th:errors="*{all}">Erros na validação</p>
 			

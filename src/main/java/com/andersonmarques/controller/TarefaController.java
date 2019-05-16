@@ -12,67 +12,53 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.andersonmarques.model.Tarefa;
-import com.andersonmarques.service.DatabaseService;
 import com.andersonmarques.service.TarefaService;
 
 @Controller
-@RequestMapping("/crud-tarefa")
-public class CrudController {
-	
-	@Autowired
-	private DatabaseService databaseService;
+@RequestMapping("/tarefa")
+public class TarefaController {
+
 	@Autowired
 	private TarefaService tarefaService;
 
-	/**
-	 * Endpoint para popular banco de dados.
-	 * Disponível no caminho localhost:8080/crud-tarefa/popular
-	 * @return
-	 */
-	@GetMapping("/popular")
-	public String popularBancoDeDados() {
-		databaseService.popularBancoDeDados();
-		return "/popular";//retorna página dentro de main/resources/templates/popular.html
-	}
-	
 	@GetMapping("/novo")
 	public String novaTarefa(Tarefa tarefa) {
-		return "/criar-tarefa";//criar-tarefa.html
+		return "/criar-tarefa";// retorna página dentro de main/resources/templates/criar-tarefa.html
 	}
-	
+
 	@PostMapping("/adicionar")
 	public String adicionar(@Valid Tarefa tarefa, BindingResult result) {
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			return "/criar-tarefa";
 		}
 		tarefaService.criar(tarefa);
-		return "redirect:/crud-tarefa/listar-todas";
+		return "redirect:/tarefa/listar";
 	}
-	
-	@GetMapping("/listar-todas")
+
+	@GetMapping("/listar")
 	public String listarTodas(ModelMap model) {
 		model.addAttribute("tarefas", tarefaService.encontrarTodasAsTarefas());
 		return "/listar-tarefas";
 	}
-	
+
 	@GetMapping("/editar/{id}")
-	public String editar(@PathVariable("id")int id, ModelMap model) {
+	public String editar(@PathVariable("id") int id, ModelMap model) {
 		model.addAttribute("tarefa", tarefaService.encontrarTarefaPorId(id));
 		return "/editar-tarefa";
 	}
-	
+
 	@PostMapping("/atualizar")
 	public String atualizar(@Valid Tarefa tarefa, BindingResult result) {
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			return "/editar-tarefa";
 		}
 		tarefaService.editarTarefa(tarefa);
-		return "redirect:/crud-tarefa/listar-todas";
+		return "redirect:/tarefa/listar";
 	}
-	
+
 	@GetMapping("/remover/{id}")
-	public String remover(@PathVariable("id")int id) {
+	public String remover(@PathVariable("id") int id) {
 		tarefaService.removerTarefaPorId(id);
-		return "redirect:/crud-tarefa/listar-todas";
+		return "redirect:/tarefa/listar";
 	}
 }
