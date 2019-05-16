@@ -33,3 +33,5 @@
 /out/
 */.vscode/
 .tern-project
+TODO.txt
+src/main/resources/application-prod.properties
