@@ -17,15 +17,16 @@
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 			Nome: <input type="text" th:field="*{nome}"/>
 			Descricao: <input type="text" th:field="*{descricao}"/>
-			Data limite de entrega: <input type="date" th:field="*{dataLimite}" id="datePickerId" />
+			Data de início: <input type="date" th:field="*{dataInicio}" id="datePickerIdInicio" />
+			Data limite de entrega: <input type="date" th:field="*{dataLimite}" id="datePickerIdLimite" />
 			
 			<button type="submit">Cadastrar</button>
 		</form>
 		
 		<script>
 			//Solução por TRiNE
-			datePickerId.min= new Date().toISOString().split("T")[0];
+			datePickerIdInicio.min= new Date().toISOString().split("T")[0];
+			datePickerIdLimite.min= new Date().toISOString().split("T")[0];
 		</script>
-	
 	</body>
 </html>

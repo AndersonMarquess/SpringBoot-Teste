@@ -18,10 +18,10 @@
 			
 			Nome: <input type="text" th:value="${ tarefa.nome }" name="nome" th:field="*{nome}"/>
 			Descricao: <input type="text" th:value="${ tarefa.descricao }" name="descricao" th:field="*{descricao}"/>
+			Data de início: <input type="date" th:value="${ tarefa.dataInicio }" name="dataInicio" th:field="*{dataInicio}"/>
 			Data limite de entrega: <input type="date" th:value="${ tarefa.dataLimite }" name="dataLimite" th:field="*{dataLimite}"/>
 	
 			<button type="submit">Cadastrar</button>
 		</form>
-	
 	</body>
 </html>

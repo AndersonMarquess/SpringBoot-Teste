@@ -12,18 +12,16 @@
 		<!--Lista -->
 		<table border="1">
 			<tr>
-				<th>Id</th>
 				<th>Nome</th>
 				<th>Descrição</th>
-				<th>Data de criação</th>
+				<th>Data de início</th>
 				<th>Data de entrega</th>
 				<th sec:authorize="hasRole('USER')">Opções</th>
 			</tr>
 			<tr th:each="t : ${tarefas}">
-				<td th:text="${t.id}"></td>
 				<td th:text="${t.nome}"></td>
 				<td th:text="${t.descricao}"></td>
-				<td> <input type="date" th:value="${t.dataCriacao}" readonly/> </td>
+				<td> <input type="date" th:value="${t.dataInicio}" readonly/> </td>
 				<td> <input type="date" th:value="${t.dataLimite}" readonly/> </td>
 				<td sec:authorize="hasRole('USER')"> 
 					<a th:href="@{/tarefa/editar/{id} (id=${t.id}) }">Editar</a> | 

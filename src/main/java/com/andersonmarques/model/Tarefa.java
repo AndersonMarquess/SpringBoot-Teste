@@ -17,9 +17,11 @@ public class Tarefa {
 	private String nome;
 	@Size(max=200, message="A Descrição deve possuir no máximo {max} caracteres.")
 	private String descricao;
+	@NotEmpty(message="A Data de início não pode ser nulo.")
+	private String dataInicio;
 	@NotEmpty(message="A Data limite de entrega não pode ser nulo.")
 	private String dataLimite;
-	private String dataCriacao;
+	private Integer idDoCriador;
 
 	public Integer getId() {
 		return id;
@@ -53,17 +55,25 @@ public class Tarefa {
 		this.dataLimite = dataLimite;
 	}
 
-	public String getDataCriacao() {
-		return dataCriacao;
+	public String getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDataCriacao(String dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setDataInicio(String dataCriacao) {
+		this.dataInicio = dataCriacao;
 	}
 
 	@Override
 	public String toString() {
 		return String.format("Tarefa Id=%s, Nome=%s, Descricao=%s, DataLimite=%s, DataCriacao=%s \n", id, nome,
-				descricao, dataLimite, dataCriacao);
+				descricao, dataLimite, dataInicio);
+	}
+
+	public Integer getIdDoCriador() {
+		return idDoCriador;
+	}
+
+	public void setIdDoCriador(Integer idDoCriador) {
+		this.idDoCriador = idDoCriador;
 	}
 }

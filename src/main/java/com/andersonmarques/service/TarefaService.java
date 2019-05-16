@@ -16,27 +16,31 @@ public class TarefaService {
 
 	@Autowired
 	private TarefaRepository tarefaRepository;
-	
+	@Autowired
+	private UsuarioAutenticavelService usuarioAutenticavelService;
+
 	public void criar(Tarefa tarefa) {
-		tarefa.setDataCriacao(LocalDate.now().toString());
+		tarefa.setDataInicio(LocalDate.now().toString());
+		tarefa.setIdDoCriador(usuarioAutenticavelService.getIdDoUsuarioLogado());
 		tarefaRepository.save(tarefa);
 	}
-	
+
 	public Tarefa encontrarTarefaPorId(int id) {
 		return tarefaRepository.findById(id).get();
 	}
-	
+
 	public List<Tarefa> encontrarTodasAsTarefas() {
-		return tarefaRepository.findAll();
+		return tarefaRepository.findAllByIdDoCriador(usuarioAutenticavelService.getIdDoUsuarioLogado());
 	}
 
-	//Necessário para usar @Modifying com Update 
+	// Necessário para usar @Modifying com Update
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void editarTarefa(Tarefa tarefa) {
-		tarefaRepository.update(tarefa.getNome(), tarefa.getDescricao(), tarefa.getDataLimite(), tarefa.getId());
+		tarefaRepository.update(tarefa.getNome(), tarefa.getDescricao(), tarefa.getDataInicio(), tarefa.getDataLimite(),
+				tarefa.getId(), usuarioAutenticavelService.getIdDoUsuarioLogado());
 	}
-	
+
 	public void removerTarefaPorId(int id) {
-		tarefaRepository.deleteById(id);
+		tarefaRepository.deleteByIdAndIdDoCriador(id, usuarioAutenticavelService.getIdDoUsuarioLogado());
 	}
 }
