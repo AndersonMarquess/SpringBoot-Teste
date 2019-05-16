@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Entity
 public class Usuario {
 	
@@ -47,7 +49,7 @@ public class Usuario {
 		return senha;
 	}
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = new BCryptPasswordEncoder().encode(senha);
 	}
 	
 	/**
@@ -56,7 +58,7 @@ public class Usuario {
 	 * @throws IllegalArgumentException caso a permissão ou seu nome sejam nulos.
 	 */
 	public void addPermissao(Permissao permissao) {
-		if(permissao.getNomePermissao().trim().isEmpty() || permissao== null) {
+		if(permissao == null || permissao.getNomePermissao().trim().isEmpty()) {
 			throw new IllegalArgumentException("Permissão inválida.");
 		}
 		permissoes.add(permissao);

@@ -2,8 +2,11 @@ package com.andersonmarques.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.andersonmarques.model.Usuario;
 import com.andersonmarques.service.UsuarioAutenticavelService;
 
 @Controller
@@ -17,18 +20,17 @@ public class LoginController {
 		return "login"; // login.html
 	}
 
-	/**
-	 * Endpoint para criar o admin inicial do sistema.
-	 * 
-	 * @return
-	 */
-	@GetMapping("/popular-users")
-	public String popularUsers() {
-		try {
-			usuarioAutenticavelService.criarAdminMock();
-		} catch (Exception e) {
-			System.out.println("Usuário já existente.");
+	@GetMapping("/cadastrar")
+	public String novo(Usuario usuario) {
+		return "/usuario/criar-usuario";
+	}
+
+	@PostMapping("/adicionar")
+	public String adicionar(Usuario usuario, BindingResult result) {
+		if(result.hasErrors()) {
+			return novo(usuario);
 		}
-		return "login";
+		usuarioAutenticavelService.adicionar(usuario);
+		return "redirect:/tarefa/listar";
 	}
 }
