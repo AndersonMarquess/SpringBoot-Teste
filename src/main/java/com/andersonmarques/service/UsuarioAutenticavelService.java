@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.andersonmarques.model.Permissao;
@@ -48,41 +48,38 @@ public class UsuarioAutenticavelService implements UserDetailsService {
 	}
 
 	/**
-	 * Retorna todas as Permissoes do usuário com id especificado.
+	 * Retorna todas as Permissões do usuário com id especificado.
 	 * @return
 	 */
 	private Collection<GrantedAuthority> getPermissoesPorIdUsuario(Integer id) {
 		List<Permissao> permissoes = permissaoRepository.encontrarPermissoesPorIdUsuario(id);
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
 		permissoes.forEach(
-			p -> authorities.add(
-					() -> p.getNomePermissao()
-			)
+			p -> authorities.add(p::getNomePermissao)
 		);
 		return authorities;
 	}
-	
-	/**
-	 * Cria um administrador com dados padrão.
-	 */
-	public void criarAdminMock() {
-		Usuario u = new Usuario();
-		u.setNomeUsuario("admin");
-		u.setSenha(new BCryptPasswordEncoder().encode("123"));
-		//usuarioRepository.save(u);
-		
-		Permissao pAdmin = new Permissao();
-		pAdmin.setNomePermissao("ROLE_ADMIN");
-		pAdmin.adicionarUsuario(u);
 
+	public void adicionar(Usuario usuario) {
+		adicionarPermissoesPadrao(usuario);
+		usuarioRepository.save(usuario);
+	}
+	
+	private void adicionarPermissoesPadrao(Usuario usuario) {
 		Permissao pUser = new Permissao();
 		pUser.setNomePermissao("ROLE_USER");
-		pUser.adicionarUsuario(u);
-		
-		u.addPermissao(pUser);
-		u.addPermissao(pAdmin);
-		permissaoRepository.save(pAdmin);
+		pUser.adicionarUsuario(usuario);
+		usuario.addPermissao(pUser);			
 		permissaoRepository.save(pUser);
-		usuarioRepository.save(u);
+	}
+
+	public Usuario encontrarUsuarioComNome(String nomeUsuario) {
+		return usuarioRepository.encontrarUsuarioComNome(nomeUsuario);
+	}
+
+	public Integer getIdDoUsuarioLogado() {
+		String nomeUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioRepository.encontrarUsuarioComNome(nomeUsuario);
+		return usuario.getId();
 	}
 }
