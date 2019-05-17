@@ -23,13 +23,13 @@ public class TarefaController {
 
 	@GetMapping("/novo")
 	public String novaTarefa(Tarefa tarefa) {
-		return "/criar-tarefa";// retorna página dentro de main/resources/templates/criar-tarefa.html
+		return "criar-tarefa";// retorna página dentro de main/resources/templates/criar-tarefa.html
 	}
 
 	@PostMapping("/adicionar")
 	public String adicionar(@Valid Tarefa tarefa, BindingResult result) {
 		if (result.hasErrors()) {
-			return "/criar-tarefa";
+			return "criar-tarefa";
 		}
 		tarefaService.criar(tarefa);
 		return "redirect:/tarefa/listar";
@@ -38,19 +38,19 @@ public class TarefaController {
 	@GetMapping("/listar")
 	public String listarTodas(ModelMap model) {
 		model.addAttribute("tarefas", tarefaService.encontrarTodasAsTarefas());
-		return "/listar-tarefas";
+		return "listar-tarefas";
 	}
 
 	@GetMapping("/editar/{id}")
 	public String editar(@PathVariable("id") int id, ModelMap model) {
 		model.addAttribute("tarefa", tarefaService.encontrarTarefaPorId(id));
-		return "/editar-tarefa";
+		return "editar-tarefa";
 	}
 
 	@PostMapping("/atualizar")
 	public String atualizar(@Valid Tarefa tarefa, BindingResult result) {
 		if (result.hasErrors()) {
-			return "/editar-tarefa";
+			return "editar-tarefa";
 		}
 		tarefaService.editarTarefa(tarefa);
 		return "redirect:/tarefa/listar";

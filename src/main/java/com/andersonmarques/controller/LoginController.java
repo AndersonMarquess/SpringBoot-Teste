@@ -22,7 +22,7 @@ public class LoginController {
 
 	@GetMapping("/cadastrar")
 	public String novo(Usuario usuario) {
-		return "/usuario/criar-usuario";
+		return "usuario/criar-usuario";
 	}
 
 	@PostMapping("/adicionar")
