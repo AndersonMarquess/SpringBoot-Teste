@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-    <head>
-    	<meta charset="UTF-8"/>
-        <title>Login</title>
-    </head>
-    <body>
+
+<head th:replace="fragmentos/head.html :: head('Login')"></head>
+
+<body style="padding-top: 20vh;">
+    <nav th:insert="fragmentos/navbar.html :: barra"></nav>
+
+    <main class="container">
+
         <div th:if="${param.error}">
             Usuários ou senha inválidos.
         </div>
         <div th:if="${param.logout}">
             Desconectado.
         </div>
+        <header>
+            <h1 style="text-align: center">Entrar</h1>
+        </header>
+
         <form th:action="@{/login}" method="post">
-            <div>
-            	<label> Login: <input type="text" name="username"/></label>
-     		</div>
-            <div>
-            	<label> Senha: <input type="password" name="password"/> </label>
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input type="text" name="username" class="form-control" id="login"
+                    placeholder="Nome de login" /></label>
+            </div>
+            <div class="form-group">
+                <label for="Senha">Senha</label>
+                <input type="password" name="password" class="form-control" id="Senha" placeholder="Senha">
             </div>
             <div>
-            	<input type="submit" value="Entrar"/>
-           	</div>
+                <input type="submit" value="Entrar" class="btn btn-info" />
+            </div>
         </form>
-    </body>
+    </main>
+</body>
+
 </html>

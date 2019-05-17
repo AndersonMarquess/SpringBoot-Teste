@@ -1,6 +1,5 @@
 package com.andersonmarques.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ public class TarefaService {
 	private UsuarioAutenticavelService usuarioAutenticavelService;
 
 	public void criar(Tarefa tarefa) {
-		tarefa.setDataInicio(LocalDate.now().toString());
 		tarefa.setIdDoCriador(usuarioAutenticavelService.getIdDoUsuarioLogado());
 		tarefaRepository.save(tarefa);
 	}
@@ -40,6 +38,7 @@ public class TarefaService {
 				tarefa.getId(), usuarioAutenticavelService.getIdDoUsuarioLogado());
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void removerTarefaPorId(int id) {
 		tarefaRepository.deleteByIdAndIdDoCriador(id, usuarioAutenticavelService.getIdDoUsuarioLogado());
 	}
