@@ -33,4 +33,9 @@ public class LoginController {
 		usuarioAutenticavelService.adicionar(usuario);
 		return "redirect:/tarefa/listar";
 	}
+	
+	@GetMapping("/")
+	public String paginaInicial() {
+		return "redirect:/tarefa/listar";
+	}
 }
