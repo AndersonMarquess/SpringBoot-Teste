@@ -27,8 +27,8 @@
                 <tr th:each="t : ${tarefas}">
                     <td th:text="${t.nome}"></td>
                     <td th:text="${t.descricao}" style="width: 465px;"></td>
-                    <td> <input type="date" th:value="${t.dataInicio}" readonly /> </td>
-                    <td> <input type="date" th:value="${t.dataLimite}" readonly /> </td>
+                    <td> <input type="date" th:value="${t.dataInicio}" readonly class="form-control"/> </td>
+                    <td> <input type="date" th:value="${t.dataLimite}" readonly class="form-control"/> </td>
                     <td sec:authorize="hasRole('USER')">
                         <a th:href="@{/tarefa/editar/{id} (id=${t.id}) }" class="btn btn-primary btn-sm">Editar</a> |
                         <button class="btn btn-danger btn-sm" data-toggle="modal"
